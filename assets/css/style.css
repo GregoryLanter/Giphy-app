@@ -1,0 +1,52 @@
+*{
+    border: 1px solid blue;
+}
+.input{
+    float:right;
+    width:33%;
+    height:25%;
+}
+.buttonHolder{
+    background-color: aqua;
+    width:100%;
+    height:50px;
+}
+
+.outline{
+    width:100%;
+    height:100%;
+}
+/*.outline:after{
+    content: "";
+    display: table;
+    clear: both;
+}*/
+.giphyButton{
+    /*width: 100px;
+    height: 20px;*/
+    margin:5px;
+}
+.gifHolder{
+    display: block;
+    float: left;
+    height: 640px;
+    width: 885px;
+}
+.gif{
+    height: 125px;
+    width: 125px;
+    border: 1px solid black;
+}
+.cardHolder{
+    display: block;
+    float: left;
+    height: 150px;
+    width: 150px;
+    border: 1px solid black;
+    text-align: center;
+    margin:5px;
+}
+.rating{
+    height: 18px;
+    width: 150px;
+}

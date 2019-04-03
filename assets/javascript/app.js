@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "We Bare Bears", "Rockos Modern Life", "Ducktales", "Smurfs", "The Amazing World of Gumball","SpongeBob"]
-    var count = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+    var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "We Bare Bears", "Rockos Modern Life", "Ducktales", "Smurfs", "The Amazing World of Gumball", "SpongeBob"]
+    var count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var nextInterval;
     var addGifs = false;
     var newGifs = false;
@@ -11,49 +11,51 @@ $(document).ready(function () {
     function addButton(cartoon) {
         var newButton = $('<button>' + cartoon + '</button>');
         newButton.attr("type", "Button");
-        newButton.addClass("giphyButton")
+        newButton.addClass("giphyButton button");
         newButton.attr("id", cartoon);
         newButton.html(cartoon);
         newButton.appendTo($(".buttonHolder"));
     }
     $("#submit").on("click", function () {
         var newName = $("#cartoonName").val();
-        if(topics.indexOf(newName) == -1){
-            topics.push(newName);
-            count.push(0);
-            addButton(newName);
-        }else{
-            $("#message").text("There is already a button for " + newName);
-            nextInterval = setInterval(duplicateButton, 5000);
+        if (newName != "") {
+            if (topics.indexOf(newName) == -1) {
+                topics.push(newName);
+                count.push(0);
+                addButton(newName);
+            } else {
+                $("#message").text("There is already a button for " + newName);
+                nextInterval = setInterval(duplicateButton, 5000);
+            }
+            $("#cartoonName").val("");
         }
-        $("#cartoonName").val("");
     });
 
-    function duplicateButton(){
+    function duplicateButton() {
         clearInterval(nextInterval);
         $("#message").text("");
     }
 
-    $(".check").change(function(){
-        if($(this).val() == "add"){
+    $(".check").change(function () {
+        if ($(this).val() == "add") {
             addGifs = !addGifs;
-        }else{
+        } else {
             newGifs = !newGifs;
         }
-        
+
     });
 
     $(document.body).on("click", ".giphyButton", function () {
-        var offset=0;
-        if(newGifs){
+        var offset = 0;
+        if (newGifs) {
             offset = count[topics.indexOf($(this).text())];
             count[topics.indexOf($(this).text())] = offset + 10;
-        }else{
+        } else {
             offset = 0;
         }
 
         //clear gifs
-        if(!addGifs){
+        if (!addGifs) {
             $(".cardHolder").remove();
         }
         //$(".giphyButton").on("click", function(){
@@ -79,6 +81,10 @@ $(document).ready(function () {
                 divRating.text("rating:" + obj.rating);
                 divRating.addClass("rating");
 
+                var divFavorite = $("<div><i class='far fa-heart'></i></div>");
+                divFavorite.addClass("favorite");
+                divFavorite.attr("data-favorite", false);
+
                 var elem = $("<img>");
                 elem.attr("src", obj.images.original_still.url);
                 elem.attr("data-still", obj.images.original_still.url);
@@ -91,8 +97,9 @@ $(document).ready(function () {
                 divTitle.appendTo(divCardHolder);
                 elem.appendTo(divCardHolder);
                 divRating.appendTo(divCardHolder);
+                divFavorite.appendTo(divCardHolder);
                 divCardHolder.appendTo(".gifHolder");
-                
+
             }
             //response.data.each(element){
             $(".gif").on("click", function () {
@@ -109,8 +116,18 @@ $(document).ready(function () {
                     $(this).attr("data-state", "still");
                 }
             });
-
+            $(".favorite").on("click",function(){
+                if($(this).attr("data-favorite") == "true"){
+                    $(this).removeClass("favoriteTrue");
+                    $(this).addClass("favoriteFalse")
+                    $(this).attr("data-favorite", "false");
+                }else{
+                    $(this).removeClass("favoriteFalse");
+                    $(this).addClass("favoriteTrue")
+                    $(this).attr("data-favorite", "true");
+                }
+            });
+        
         });
     });
-
 });

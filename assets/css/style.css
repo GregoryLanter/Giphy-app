@@ -30,6 +30,7 @@ body{
     /*width: 100px;
     height: 20px;*/
     margin:5px;
+    border-radius:12px;
 }
 .gifHolder{
     float: left;
@@ -50,13 +51,32 @@ body{
     border: 1px solid black;
     text-align: center;
     margin:5px;
+    border-radius: 12px;
 }
 .rating{
     height: 18px;
     width: 249px;
 }
 #cartoonName{
+    margin:5px;
+    border-radius:12px;
     width: 100%;
+}
+.check{
+    display:inline-block;
+    background-color: darkgray;
+}
+.title{
+    font-size: 15px;
+    height: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.submit{
+    width:100%;
+}
+.label{
+    text-align: center;
 }
 
 /**change style based on screen size **/
@@ -251,14 +271,4 @@ body{
     .input{
         width: 130px;
     }
-}
-#check-1, #check-2{
-    display:inline-block;
-    background-color: darkgray;
-}
-.title{
-    font-size: 15px;
-    height: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }

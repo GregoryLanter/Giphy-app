@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "Rugrats", "Rockos Modern Life", "Ducktales"]
-    var count = [0,0,0,0,0,0,0,0,0,0]
+    var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "We Bare Bears", "Rockos Modern Life", "Ducktales", "Smurfs", "The Amazing World of Gumball","SpongeBob"]
+    var count = [0,0,0,0,0,0,0,0,0,0,0,0,0]
     var nextInterval;
     var addGifs = false;
     var newGifs = false;

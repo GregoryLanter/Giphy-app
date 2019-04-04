@@ -2,21 +2,21 @@ $(document).ready(function () {
     var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "We Bare Bears", "Rockos Modern Life", "Ducktales", "Smurfs", "The Amazing World of Gumball", "SpongeBob"]
     var count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var favs = [];
-    var displayed=[];
+    var displayed = [];
     var nextInterval;
     var addGifs = false;
     var newGifs = false;
-    
+
 
     topics.forEach(function (cartoon) {
         addButton(capitalizeButton(cartoon));
     })
-    function capitalizeButton(cartoon){
+    function capitalizeButton(cartoon) {
         var returnStr = ""
         returnStr = cartoon[0].toUpperCase();
-        for(var i=1; i<cartoon.length; i++){
+        for (var i = 1; i < cartoon.length; i++) {
             returnStr = returnStr + cartoon[i];
-            if (cartoon[i] == " "){
+            if (cartoon[i] == " ") {
                 i++;
                 returnStr = returnStr + cartoon[i].toUpperCase();
             }
@@ -51,18 +51,17 @@ $(document).ready(function () {
         clearInterval(nextInterval);
         $("#message").text("");
     }
-    function buildCard(obj, fav, size){
+    function buildCard(obj, fav, size) {
         var divTitle = $("<div>");
         divTitle.text(obj.title.toUpperCase());
-        
+
 
         var divRating = $("<div>");
         divRating.text("Rating:" + obj.rating.toUpperCase());
-        
+
 
         var divFavorite = $("<div><i class='far fa-heart'></i></div>");
-        
-        divFavorite.attr("data-favorite", fav);
+        /*divFavorite.attr("data-favorite", fav);*/
         var elem = $("<img>");
         elem.attr("src", obj.still);
         elem.attr("data-still", obj.still);
@@ -70,14 +69,27 @@ $(document).ready(function () {
 
         var divCardHolder = $("<div>");
         divCardHolder.attr("data-id", obj.id)
-        
-        if(size == "large"){
+
+        if (size == "large") {
+            for(var i=0; i<favs.length; i++){
+                if(favs[i].id == obj.id || fav == "true"){
+                    divFavorite.addClass("favoriteTrue");
+                    divFavorite.attr("color","antiquewhite")
+                    divFavorite.attr("data-favorite", "true");
+                    i = favs.length+2;
+                }
+            };
+            if(i == favs.length){
+                divFavorite.addClass("favoritesFalse");
+                divFavorite.attr("color","darkgray")
+                divFavorite.attr("data-favorite", "false");
+            }
             divTitle.addClass("title");
             divRating.addClass("rating");
             divFavorite.addClass("favorite");
             elem.addClass("gif");
             divCardHolder.addClass("cardHolder");
-        }else{
+        } else {
             divTitle.addClass("smallTitle");
             divRating.addClass("smallRating");
             divFavorite.addClass("favorite");
@@ -87,11 +99,6 @@ $(document).ready(function () {
         }
         /*divCardHolder.addClass("cardHolder");*/
 
-        if(fav == "true"){
-            divFavorite.addClass("favoriteTrue");
-        }else{
-            divFavorite.addClass("favoriteFalse");
-        }
         divTitle.appendTo(divCardHolder);
         elem.appendTo(divCardHolder);
         divRating.appendTo(divCardHolder);
@@ -106,14 +113,33 @@ $(document).ready(function () {
         }
 
     });
-    $(".cancel").click(function(){
+    $(".cancel").click(function () {
         clearGifs();
     });
 
-    function clearGifs(){
+    function clearGifs() {
         $(".cardHolder").remove();
     }
 
+    $(".favButton").on("click", function () {
+        $(".cardHolder").remove();
+        favs.forEach(function (elem) {
+            var card = buildCard(elem, "true", "large")
+            card.appendTo(".gifHolder");
+        });
+    });
+
+    $(document).ready(function () {
+        var obj = JSON.parse(localStorage.getItem("favorites"));
+        if(obj != null){
+            favs = obj;
+            favs.forEach(function (elem) {
+                console.log(elem);
+                var card = buildCard(elem, "true", "small");
+                card.appendTo(".favoriteHolder");
+            });
+        }
+    });
     $(document.body).on("click", ".giphyButton", function () {
         var offset = 0;
         offset = count[topics.indexOf($(this).text())];
@@ -134,24 +160,21 @@ $(document).ready(function () {
             console.log(response);
             for (var i = 0; i < 10; i++) {
                 var obj = response.data[i];
-                /*<img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" 
-                data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" 
-                data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" 
-                data-state="still" class="gif"></img>*/
-                var cardObj = {                
+                var cardObj = {
                     id: obj.id,
                     title: obj.title,
                     rating: obj.rating,
                     still: obj.images.original_still.url,
-                    animated:obj.images.original.url,
+                    animated: obj.images.original.url,
                 }
                 displayed.push(cardObj);
-                
-                var card = buildCard(cardObj,"false", "large")
+
+                var card = buildCard(cardObj, "false", "large")
                 card.appendTo(".gifHolder");
             }
             //response.data.each(element){
-            $(".gif",".ssmallGif").on("click", function () {
+            //$(".gif",".ssmallGif").on("click", function () {
+            $(document.body).on("click", ".gif", function () {
                 // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
                 var state = $(this).attr("data-state");
                 // If the clicked image's state is still, update its src attribute to what its data-animate value is.
@@ -165,52 +188,46 @@ $(document).ready(function () {
                     $(this).attr("data-state", "still");
                 }
             });
-            $(".favorite").on("click",function(){
-                if($(this).attr("data-favorite") == "true"){
+            $(document.body).on("click", ".favorite", function () {
+            //$(".favorite").on("click", function () {
+                if ($(this).attr("data-favorite") == "true") {
                     $(this).removeClass("favoriteTrue");
                     $(this).addClass("favoriteFalse")
                     $(this).attr("data-favorite", "false");
                     var searchID = $(this).parent().attr("data-id")
-                    for(var i=0; i< displayed.length; i++){
-                        if(displayed[i].id == searchID){
-                            var card = displayed[i];
-                            favs.pop(card);
+                    for (var i = 0; i < favs.length; i++) {
+                        if (favs[i].id == searchID) {
+                            /*var card = displayed[i];*/
+                            favs.splice(i,1);
+                            localStorage.setItem("favorites", JSON.stringify(favs));
                             i = displayed.length;
                         }
                     }
                     var favHldobj = document.getElementsByClassName('favoriteHolder')
                     var nodes = favHldobj[0].childNodes;
-                    nodes.forEach( 
-                        function(elem) { 
-                          console.log(elem.dataset.id);
-                          if(elem.dataset.id == searchID){/*$(this).parent().attr("data-id")){*/
+                    nodes.forEach(function (elem) {
+                        console.log(elem.dataset.id);
+                        if (elem.dataset.id == searchID) {/*$(this).parent().attr("data-id")){*/
                             elem.remove();
-                          } 
                         }
-                      );
+                    });
 
-                }else{
+                } else {
                     $(this).removeClass("favoriteFalse");
                     $(this).addClass("favoriteTrue")
                     $(this).attr("data-favorite", "true");
-                    
-                    for(var i=0; i< displayed.length; i++){
-                        if(displayed[i].id == $(this).parent().attr("data-id")){
+
+                    for (var i = 0; i < displayed.length; i++) {
+                        if (displayed[i].id == $(this).parent().attr("data-id")) {
                             var card = displayed[i];
                             favs.push(card);
+                            localStorage.setItem("favorites", JSON.stringify(favs));
                             i = displayed.length;
                         }
                     }
                     var card = buildCard(card, "true", "small");
                     card.appendTo(".favoriteHolder");
                 }
-            });
-            $(".favButton").on("click", function(){
-                $(".cardHolder").remove();
-                favs.forEach(function(elem){
-                    var card = buildCard(elem, "true", "large")
-                    card.appendTo(".gifHolder");
-                });
             });
         });
     });

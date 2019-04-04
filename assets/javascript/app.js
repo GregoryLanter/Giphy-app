@@ -1,13 +1,29 @@
 $(document).ready(function () {
     var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "We Bare Bears", "Rockos Modern Life", "Ducktales", "Smurfs", "The Amazing World of Gumball", "SpongeBob"]
     var count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var favs = [];
+    var displayed=[];
     var nextInterval;
     var addGifs = false;
     var newGifs = false;
+    
 
     topics.forEach(function (cartoon) {
-        addButton(cartoon);
+        addButton(capitalizeButton(cartoon));
     })
+    function capitalizeButton(cartoon){
+        var returnStr = ""
+        returnStr = cartoon[0].toUpperCase();
+        for(var i=1; i<cartoon.length; i++){
+            returnStr = returnStr + cartoon[i];
+            if (cartoon[i] == " "){
+                i++;
+                returnStr = returnStr + cartoon[i].toUpperCase();
+            }
+        }
+        return returnStr;
+    }
+
     function addButton(cartoon) {
         var newButton = $('<button>' + cartoon + '</button>');
         newButton.attr("type", "Button");
@@ -22,7 +38,7 @@ $(document).ready(function () {
             if (topics.indexOf(newName) == -1) {
                 topics.push(newName);
                 count.push(0);
-                addButton(newName);
+                addButton(capitalizeButton(newName));
             } else {
                 $("#message").text("There is already a button for " + newName);
                 nextInterval = setInterval(duplicateButton, 5000);
@@ -35,7 +51,53 @@ $(document).ready(function () {
         clearInterval(nextInterval);
         $("#message").text("");
     }
+    function buildCard(obj, fav, size){
+        var divTitle = $("<div>");
+        divTitle.text(obj.title.toUpperCase());
+        
 
+        var divRating = $("<div>");
+        divRating.text("Rating:" + obj.rating.toUpperCase());
+        
+
+        var divFavorite = $("<div><i class='far fa-heart'></i></div>");
+        
+        divFavorite.attr("data-favorite", fav);
+        var elem = $("<img>");
+        elem.attr("src", obj.still);
+        elem.attr("data-still", obj.still);
+        elem.attr("data-animate", obj.animated);
+
+        var divCardHolder = $("<div>");
+        divCardHolder.attr("data-id", obj.id)
+        
+        if(size == "large"){
+            divTitle.addClass("title");
+            divRating.addClass("rating");
+            divFavorite.addClass("favorite");
+            elem.addClass("gif");
+            divCardHolder.addClass("cardHolder");
+        }else{
+            divTitle.addClass("smallTitle");
+            divRating.addClass("smallRating");
+            divFavorite.addClass("favorite");
+            divFavorite.addClass("favoriteTrue");
+            elem.addClass("smallGif");
+            divCardHolder.addClass("smallCardHolder");
+        }
+        /*divCardHolder.addClass("cardHolder");*/
+
+        if(fav == "true"){
+            divFavorite.addClass("favoriteTrue");
+        }else{
+            divFavorite.addClass("favoriteFalse");
+        }
+        divTitle.appendTo(divCardHolder);
+        elem.appendTo(divCardHolder);
+        divRating.appendTo(divCardHolder);
+        divFavorite.appendTo(divCardHolder);
+        return divCardHolder;
+    }
     $(".check").change(function () {
         if ($(this).val() == "add") {
             addGifs = !addGifs;
@@ -44,19 +106,22 @@ $(document).ready(function () {
         }
 
     });
+    $(".cancel").click(function(){
+        clearGifs();
+    });
+
+    function clearGifs(){
+        $(".cardHolder").remove();
+    }
 
     $(document.body).on("click", ".giphyButton", function () {
         var offset = 0;
-        if (newGifs) {
-            offset = count[topics.indexOf($(this).text())];
-            count[topics.indexOf($(this).text())] = offset + 10;
-        } else {
-            offset = 0;
-        }
+        offset = count[topics.indexOf($(this).text())];
+        count[topics.indexOf($(this).text())] = offset + 10;
 
         //clear gifs
         if (!addGifs) {
-            $(".cardHolder").remove();
+            clearGifs();
         }
         //$(".giphyButton").on("click", function(){
         var name = $(this).text();
@@ -73,36 +138,20 @@ $(document).ready(function () {
                 data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" 
                 data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" 
                 data-state="still" class="gif"></img>*/
-                var divTitle = $("<div>");
-                divTitle.text(obj.title);
-                divTitle.addClass("title");
-
-                var divRating = $("<div>");
-                divRating.text("rating:" + obj.rating);
-                divRating.addClass("rating");
-
-                var divFavorite = $("<div><i class='far fa-heart'></i></div>");
-                divFavorite.addClass("favorite");
-                divFavorite.attr("data-favorite", false);
-
-                var elem = $("<img>");
-                elem.attr("src", obj.images.original_still.url);
-                elem.attr("data-still", obj.images.original_still.url);
-                elem.attr("data-animate", obj.images.original.url);
-                elem.addClass("gif");
-
-                var divCardHolder = $("<div>");
-                divCardHolder.addClass("cardHolder");
-
-                divTitle.appendTo(divCardHolder);
-                elem.appendTo(divCardHolder);
-                divRating.appendTo(divCardHolder);
-                divFavorite.appendTo(divCardHolder);
-                divCardHolder.appendTo(".gifHolder");
-
+                var cardObj = {                
+                    id: obj.id,
+                    title: obj.title,
+                    rating: obj.rating,
+                    still: obj.images.original_still.url,
+                    animated:obj.images.original.url,
+                }
+                displayed.push(cardObj);
+                
+                var card = buildCard(cardObj,"false", "large")
+                card.appendTo(".gifHolder");
             }
             //response.data.each(element){
-            $(".gif").on("click", function () {
+            $(".gif",".ssmallGif").on("click", function () {
                 // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
                 var state = $(this).attr("data-state");
                 // If the clicked image's state is still, update its src attribute to what its data-animate value is.
@@ -121,13 +170,48 @@ $(document).ready(function () {
                     $(this).removeClass("favoriteTrue");
                     $(this).addClass("favoriteFalse")
                     $(this).attr("data-favorite", "false");
+                    var searchID = $(this).parent().attr("data-id")
+                    for(var i=0; i< displayed.length; i++){
+                        if(displayed[i].id == searchID){
+                            var card = displayed[i];
+                            favs.pop(card);
+                            i = displayed.length;
+                        }
+                    }
+                    var favHldobj = document.getElementsByClassName('favoriteHolder')
+                    var nodes = favHldobj[0].childNodes;
+                    nodes.forEach( 
+                        function(elem) { 
+                          console.log(elem.dataset.id);
+                          if(elem.dataset.id == searchID){/*$(this).parent().attr("data-id")){*/
+                            elem.remove();
+                          } 
+                        }
+                      );
+
                 }else{
                     $(this).removeClass("favoriteFalse");
                     $(this).addClass("favoriteTrue")
                     $(this).attr("data-favorite", "true");
+                    
+                    for(var i=0; i< displayed.length; i++){
+                        if(displayed[i].id == $(this).parent().attr("data-id")){
+                            var card = displayed[i];
+                            favs.push(card);
+                            i = displayed.length;
+                        }
+                    }
+                    var card = buildCard(card, "true", "small");
+                    card.appendTo(".favoriteHolder");
                 }
             });
-        
+            $(".favButton").on("click", function(){
+                $(".cardHolder").remove();
+                favs.forEach(function(elem){
+                    var card = buildCard(elem, "true", "large")
+                    card.appendTo(".gifHolder");
+                });
+            });
         });
     });
 });

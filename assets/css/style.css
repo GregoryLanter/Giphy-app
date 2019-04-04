@@ -16,6 +16,7 @@ body{
     width:15%;
     height:520px;
     background: #EADFA1;
+    margin:5px;
     /*z-index: -1;*/
 }
 .buttonHolder{
@@ -50,22 +51,45 @@ body{
 .gif{
     height: 200px;
     width: 200px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+}
+.smallGif{
+    height: 50px;
+    width: 50px;
+    /*border: 1px solid black;*/
 }
 .cardHolder{
     display: block;
     float: left;
     height: 250px;
     width: 250px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     text-align: center;
     margin:5px;
     border-radius: 12px;
     background-color: antiquewhite;
 }
+.smallCardHolder{
+    display: block;
+    float: left;
+    height: 75px;
+    width: 75px;
+    /*border: 1px solid black;*/
+    text-align: center;
+    margin:2px;
+    border-radius: 12px;
+    background-color: antiquewhite;
+}
+
 .rating{
     height: 18px;
     width: 249px;
+}
+
+.smallRating{
+    height: 8px;
+    width: 75px;
+    font-size: 4px;
 }
 #cartoonName{
     margin:5px;
@@ -82,7 +106,17 @@ body{
     text-overflow: ellipsis;
 }
 
+.smallTitle{
+    font-size: 4px;
+    height: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .submit{
+    width:100%;
+}
+.favButton{
     width:100%;
 }
 .label{
@@ -128,14 +162,28 @@ body{
       float:left;
   }
 
+  .cancel{
+      float: right;
+      position: relative;
+      top:7px;
+      margin-right: 5px;
+  }
+
   .favorite{
       position: relative;
-      top: -20px;
+      top: -15px;
       float:right;
       background-color: #35976A;
       margin-right: 5px;
   }
 
+  .smallFavorite{
+    position: relative;
+    top: -20px;
+    float:right;
+    background-color: #35976A;
+    margin-right: 5px;
+}
   .favoriteTrue{
     background-color: #BA1616;
   }
@@ -147,6 +195,7 @@ body{
   .favoriteHolder{
       background-color: transparent;
       height: 100%;
+      overflow:scroll;
   }
 /**change style based on screen size **/
 @media screen and (max-width: 1299px) {

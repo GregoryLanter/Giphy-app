@@ -23,7 +23,10 @@
                     </label>
                 </fieldset>
             </div>
-            <div class="checkbox">
+            <div>
+                <button id="submit" type="button" class="cancel button">Clear</button>
+            </div>
+<!--            <div class="checkbox">
                 <fieldset>
                     <input type="checkbox" name="check-2" id="check-2" value="new" class="check">
                     <label class="tooltip" for="check-2">
@@ -31,11 +34,11 @@
                         <span class="tooltiptext">Clicking will get a new set of gifs from Giphy</span>
                     </label>
                 </fieldset>
-            </div>
+            </div> -->
         </div>
         <div class="gifHolder"></div>
         <div class="input">
-            <div class="label"> Add a Cartoon</div>
+            <div class="label"> More Cartoons</div>
             <div class="textBox">
                 <input id="cartoonName" type="text" name="cartoon">
             </div>
@@ -43,9 +46,11 @@
                 <button id="submit" type="button" class="submit button">Submit</button>
             </div>
             <div id="message"></div>
-            <div class="favoriteHolder">
-                favoriteHolder
-            </div>
+            <br>
+            <div>
+                <button id="favorite" type="button" class="favButton button">Display Favorites</button>
+            </div>    
+            <div class="favoriteHolder"></div>
         </div>
     </div>
     <script type="text/javascript" src="assets\javascript\app.js"></script>

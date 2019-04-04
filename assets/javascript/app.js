@@ -143,7 +143,6 @@ $(document).ready(function (){
     });
     $(document.body).on("click", ".giphyButton", function () {
         var offset = 0;
-        debugger;
         offset = count[topics.indexOf($(this).text().toLowerCase())];
         count[topics.indexOf($(this).text().toLowerCase())] = offset + 10;
 

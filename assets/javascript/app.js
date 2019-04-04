@@ -1,5 +1,5 @@
-$(document).ready(function () {
-    var topics = ["The Simspsons", "Bob's Burgers", "Futurama", "King of the Hill", "Bugs Bunny", "Doug", "Angry Beavers", "We Bare Bears", "Rockos Modern Life", "Ducktales", "Smurfs", "The Amazing World of Gumball", "SpongeBob"]
+$(document).ready(function (){
+    var topics = ["the simspsons", "bob's burgers", "futurama", "king of the hill", "bugs bunny", "doug", "angry beavers", "we bare bears", "rockos modern life", "ducktales", "smurfs", "the amazing world of gumball", "spongebob"]
     var count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     var favs = [];
     var displayed = [];
@@ -32,8 +32,8 @@ $(document).ready(function () {
         newButton.html(cartoon);
         newButton.appendTo($(".buttonHolder"));
     }
-    $("#submit").on("click", function () {
-        var newName = $("#cartoonName").val();
+    $(".submit").on("click", function () {
+        var newName = $("#cartoonName").val().toLowerCase();
         if (newName != "") {
             if (topics.indexOf(newName) == -1) {
                 topics.push(newName);
@@ -87,6 +87,7 @@ $(document).ready(function () {
             divTitle.addClass("title");
             divRating.addClass("rating");
             divFavorite.addClass("favorite");
+            //divFavorite.addClass("click");
             elem.addClass("gif");
             divCardHolder.addClass("cardHolder");
         } else {
@@ -113,7 +114,7 @@ $(document).ready(function () {
         }
 
     });
-    $(".cancel").click(function () {
+    $(".cancel").on("click", function () {
         clearGifs();
     });
 
@@ -142,8 +143,9 @@ $(document).ready(function () {
     });
     $(document.body).on("click", ".giphyButton", function () {
         var offset = 0;
-        offset = count[topics.indexOf($(this).text())];
-        count[topics.indexOf($(this).text())] = offset + 10;
+        debugger;
+        offset = count[topics.indexOf($(this).text().toLowerCase())];
+        count[topics.indexOf($(this).text().toLowerCase())] = offset + 10;
 
         //clear gifs
         if (!addGifs) {

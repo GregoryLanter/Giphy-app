@@ -75,7 +75,7 @@ $(document).ready(function (){
 
         //create the rating div
         var divRating = $("<div>");
-        divRating.text("Rating:" + obj.rating.toUpperCase());
+        divRating.text("Rating: " + obj.rating.toUpperCase());
 
 
         // create the favorites div

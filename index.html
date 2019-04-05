@@ -3,17 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
+    <!--set view port for mobile use-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> GIPHY App</title>
+    <!--link to JQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--link to use heart font for favorite-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!--link to my css -->
     <link rel="stylesheet" type="text/css" href="assets\css\style.css">
 </head>
 
 <body>
     <div class="outline">
+        <!--title on the page-->
         <div class="header"> Giphy Search </div>
         <br>
+        <!--div to holf topic buttons-->
         <div class="buttonHolder"></div>
+        <!--div to hold check box and clear button-->
         <div class="checkHolder">
             <div class="checkbox">
                 <fieldset>
@@ -28,17 +36,10 @@
             <div>
                 <button id="submit" type="button" class="cancel button">Clear</button>
             </div>
-<!--            <div class="checkbox">
-                <fieldset>
-                    <input type="checkbox" name="check-2" id="check-2" value="new" class="check">
-                    <label class="tooltip" for="check-2">
-                        Get New Gifs
-                        <span class="tooltiptext">Clicking will get a new set of gifs from Giphy</span>
-                    </label>
-                </fieldset>
-            </div> -->
         </div>
+        <!--div to hold the gif cards-->
         <div class="gifHolder"></div>
+        <!--div for the input items-->
         <div class="input">
             <div class="label"> More Cartoons</div>
             <div class="textBox">
@@ -49,12 +50,14 @@
             </div>
             <div id="message"></div>
             <br>
+            <!--div to hold favorites-->
             <div>
                 <button id="favorite" type="button" class="favButton button">Display Favorites</button>
             </div>    
             <div class="favoriteHolder"></div>
         </div>
     </div>
+    <!--link to the javascript-->
     <script type="text/javascript" src="assets\javascript\app.js"></script>
 </body>
 

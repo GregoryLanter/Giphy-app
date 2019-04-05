@@ -1,17 +1,23 @@
+/*font for the whole page*/
 *{
     font-family:verdana;
     /*border: 1px solid blue;*/
 }
+/*remove margin to fit flush at the top and side*/
 body{
     overflow: hidden;
     margin: 0px;
 }
+
+/*style for all buttons */
 .button{
     background-color: #35976A;
     border-radius: 5px;
     color: antiquewhite;
     font-size: 20px;
 }
+
+/*div for the input*/
 .input{
     float: right;
     width:18%;
@@ -20,49 +26,67 @@ body{
     margin-right:10px;
     /*z-index: -1;*/
 }
+
+/*div to hold the topic buttons*/
 .buttonHolder{
     background-color: #EADFA1;
     width:100%;
     /*position: fixed;*/
     top: 0;
 }
+
+/*line for add check and clear button*/
 .header{
     font-weight: 700;
     font-size: 40px;
     color: #2D4739;
 }
+
+/*container holds main divs*/
 .outline{
     width:100vw;
     height:100vh;
     background: #EADFA1;
 }
+
+/*for clear fix*/
 .outline:after{
     content: "";
     display: table;
     clear: both;
 }
+
+/*style for topic button*/
 .giphyButton{
     /*width: 100px;
     height: 20px;*/
     margin:5px;
     border-radius:12px;
 }
+
+/*holder for image*/
 .gifHolder{
     float: left;
     height: 520px;
     width: 80%;
     overflow:scroll;
 }
+
+/*style fr picture*/
 .gif{
     height: 200px;
     width: 200px;
     /*border: 1px solid black;*/
 }
+
+/*smaller picture for favorite*/
 .smallGif{
     height: 50px;
     width: 50px;
     /*border: 1px solid black;*/
 }
+
+/* holds the cards*/
 .cardHolder{
     display: block;
     float: left;
@@ -74,6 +98,8 @@ body{
     border-radius: 12px;
     background-color: antiquewhite;
 }
+
+/*holds favorite cards*/
 .smallCardHolder{
     display: block;
     float: left;
@@ -87,24 +113,32 @@ body{
 
 }
 
+/*rating on the card*/
 .rating{
     height: 18px;
     width: 249px;
 }
 
+/*smaller rating for favorites*/
 .smallRating{
     height: 8px;
     width: 75px;
     font-size: 4px;
 }
+
+/*textbox to enter new button text*/
 #cartoonName{
     margin:5px;
     width: 95%;
 }
+
+/*check box for adding GIFS vs replacing gifs*/
 .check{
     display:inline-block;
     background-color: #2D4739;
 }
+
+/*title at the op of the card*/
 .title{
     font-size: 15px;
     height: 18px;
@@ -112,6 +146,7 @@ body{
     text-overflow: ellipsis;
 }
 
+/*small title for the top of the favorite card*/
 .smallTitle{
     font-size: 4px;
     height: 10px;
@@ -119,16 +154,23 @@ body{
     text-overflow: ellipsis;
 }
 
+/*submit button*/
 .submit{
     width:100%;
 }
+
+/*button to display favoites*/
 .favButton{
     width:100%;
 }
+
+/*label for input section*/
 .label{
     text-align: center;
     font-size: 20px;
 }
+
+/*tooltip  sizing*/
 .tooltip {
     position: relative;
     display: inline-block;
@@ -136,6 +178,7 @@ body{
    /* border-bottom: 1px dotted black;*/
   }
   
+  /*tool tip styling*/
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 240px;
@@ -152,10 +195,12 @@ body{
     left: 105%;
   }
   
+  /*make tool tip show up*/
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
 
+  /*holds check box*/
   .checkHolder{
       background: #2D4739;
       color: antiquewhite;
@@ -163,23 +208,29 @@ body{
       height: 45px;
   }
 
+  /* styling for add gifs checkbox*/
   .checkbox{
       background: transparent;
       float:left;
       height: 43px;
   }
 
+  /*button to clear current gifs*/
   .cancel{
       float: right;
       position: relative;
       top:7px;
       margin-right: 10px;
   }
+
+/*spacing for check box*/
 fieldset{
     border: 0px;
     margin:4px;
 }
-  .favorite{
+
+/*style for favorite button*/
+.favorite{
       position: relative;
       top: -20px;
       float:right;
@@ -187,6 +238,7 @@ fieldset{
       margin-right: 5px;
   }
 
+  /*smaller version of the favorite*/
   .smallFavorite{
     position: relative;
     top: -20px;
@@ -194,19 +246,24 @@ fieldset{
     background-color: #35976A;
     margin-right: 5px;
 }
+    /*turn favorite red when selected*/
   .favoriteTrue{
     background-color: #BA1616;
   }
 
+    /*turn favorite green when not selected*/
   .favoriteFalse{
     background-color: #35976A;
   }
 
+  /*div to hold the favorite thumbnails*/
   .favoriteHolder{
       background-color: transparent;
       height: 100%;
       overflow:scroll;
   }
+
+  
 /**change style based on screen size **/
 @media screen and (max-width: 1299px) {
     .input{

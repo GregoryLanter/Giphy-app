@@ -69,6 +69,7 @@ $(document).ready(function (){
 
     //build a card object to display the gif on the screen
     function buildCard(obj, fav, size) {
+        var currentDiv;
         //create the title div
         var divTitle = $("<div>");
         divTitle.text(obj.title.toUpperCase());
@@ -113,7 +114,7 @@ $(document).ready(function (){
             //if i made it through all of the elements it is not a favorite
             //style it accordingly
             if(i == favs.length){
-                divFavorite.addClass("favoritesFalse");
+                divFavorite.addClass("favoriteFalse");
                 divFavorite.attr("color","darkgray")
                 divFavorite.attr("data-favorite", "false");
             }
@@ -247,8 +248,7 @@ $(document).ready(function (){
                     $(this).attr("data-state", "still");
                 }
             });
-
-            $(document.body).on("click", ".favorite", function () {
+            $(document.body).off("click", ".favorite").on("click", ".favorite", function () {
                 //toggle the favorite data state 
                 
                 if ($(this).attr("data-favorite") == "true") {

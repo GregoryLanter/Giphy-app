@@ -259,7 +259,7 @@ fieldset{
   /*div to hold the favorite thumbnails*/
   .favoriteHolder{
       background-color: transparent;
-      height: 100%;
+      height: 70%;
       overflow:scroll;
   }
 

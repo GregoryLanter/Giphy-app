@@ -234,7 +234,9 @@ $(document).ready(function (){
             }
             //response.data.each(element){
             
-            $(document.body).on("click", ".gif", function () {
+            //$(document.body).off("click", ".gif").on("click", ".gif", function () {
+             $(document.body).off("click", ".gif").on("click", ".gif", function () {
+                debugger;
                 // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
                 var state = $(this).attr("data-state");
                 // If the clicked image's state is still, update its src attribute to what its data-animate value is.
@@ -248,9 +250,9 @@ $(document).ready(function (){
                     $(this).attr("data-state", "still");
                 }
             });
-            $(document.body).off("click", ".favorite").on("click", ".favorite", function () {
+            $(document.body).on("click", ".favorite", function () {
                 //toggle the favorite data state 
-                
+                debugger
                 if ($(this).attr("data-favorite") == "true") {
                     //remove favorite style
                     $(this).removeClass("favoriteTrue");

@@ -9,3 +9,5 @@ To star the project a user should can click on of the premade buttons at the top
 
 ##Technical Notes
 In this app we make a call to the Giphy API. We limit the results to 10 PG or nicer GIFS/ We dynaimcaly create a "card" and append them to the screen. I create a card object that has the information we need like still-url, animated-url, id, etc. To keep the favorites I store and array of these object in local storage after using stringify on it. 
+
+https://gregorylanter.github.io/Giphy-app/
